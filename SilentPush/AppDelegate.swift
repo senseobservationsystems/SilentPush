@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootViewController.viewModel = ViewModel(store: eventsStore)
 
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        
+
         // Ask for permission to display badge numbers on the app icon.
         // This is not needed to receive silent push notifications.
         // We use the badge to signal when the app got activated in the background upon receipt of an event.
@@ -81,6 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         print("\(__FUNCTION__)")
+
+        if application.applicationState != .Active {
+            numberOfEventsReceivedWhileInBackgroundStore.value += 1
+        }
 
         let event = BackgroundActivity.BackgroundAppRefresh(receivedAt: NSDate())
         eventsStore.value.elements.insert(event, atIndex: 0)
