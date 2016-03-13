@@ -38,9 +38,9 @@ You can use the app to test how push notifications and background fetch events a
     1. Active in the foreground.
     2. Suspended in the background.
     3. After force-quitting it from the app switcher.
-    4. Change the app’s permissions to receive notifications and/or perform Background App Refresh in Settings.
+    4. After changing the app’s permissions to receive notifications and/or perform Background App Refresh in Settings.
 
-## Sending Push Notifications
+## How to Send Push Notifications
 
 I recommend Mattt Thompson’s [Houston](https://github.com/nomad/Houston) for sending push notifications from the command line (part of the [Nomad](http://nomad-cli.com) set of command line tools).
 
@@ -53,3 +53,7 @@ $ apn push <TOKEN> \
 ```
 
 where `TOKEN` is the device token without spaces, e.g. `66175d5c3ac68a6adf30a98084697476ef7a8f29127f7f1fc487839fa3ba7796`, and `PATH_TO_PUSH_CERT` is the path to your push certificate. Feel free to experiment with varying payloads. The `"content-available": 1` key-value pair specifies a silent push notification.
+
+## Test Results
+
+(todo)
