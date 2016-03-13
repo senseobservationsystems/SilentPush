@@ -20,8 +20,8 @@ You can use the app to test how push notifications and background fetch events a
 
 2. If you want to send push notifications for testing, you must do the following:
 
-    a. Change the app’s bundle identifier in Xcode.
-    b. Register an App ID and create a push certificate (for the development environment) on [Apple's developer site](https://developer.apple.com/account/ios/identifier/bundle).
+    1. Change the app’s bundle identifier in Xcode.
+    2. Register an App ID and create a push certificate (for the development environment) on [Apple's developer site](https://developer.apple.com/account/ios/identifier/bundle).
 
 3. Run the app. On first launch the app will ask you for permission to send you notifications. It does this _only_ to be able to set the app icon badge number on the home screen (incremented whenever the app receives a silent push or background fetch event while it is in the background), so I suggest you allow notifications. No user permission is required for an app to receive silent push notifications, however, so feel free to not give permission.
 
@@ -35,10 +35,10 @@ You can use the app to test how push notifications and background fetch events a
 
 5. Observe how the app receives push notifications and background fetch events in different states:
 
-    a. Active in the foreground.
-    b. Suspended in the background.
-    c. After force-quitting it from the app switcher.
-    d. Change the app’s permissions to receive notifications and/or perform Background App Refresh in Settings.
+    1. Active in the foreground.
+    2. Suspended in the background.
+    3. After force-quitting it from the app switcher.
+    4. Change the app’s permissions to receive notifications and/or perform Background App Refresh in Settings.
 
 ## Sending Push Notifications
 
@@ -52,4 +52,4 @@ $ apn push <TOKEN> \
     --payload '{ "aps": { "content-available": 1 } }'
 ```
 
-where `TOKEN` is the device token without spaces, e.g. `66175d5c3ac68a6adf30a98084697476ef7a8f29127f7f1fc487839fa3ba7796` and `PATH_TO_PUSH_CERT` is the path to your push certificate. Feel free to experiment with varying payloads. The `"content-available": 1` key-value pair specifies a silent push notification.
+where `TOKEN` is the device token without spaces, e.g. `66175d5c3ac68a6adf30a98084697476ef7a8f29127f7f1fc487839fa3ba7796`, and `PATH_TO_PUSH_CERT` is the path to your push certificate. Feel free to experiment with varying payloads. The `"content-available": 1` key-value pair specifies a silent push notification.
