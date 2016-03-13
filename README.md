@@ -20,10 +20,10 @@ You can use the app to test how push notifications and background fetch events a
 
 2. If you want to send push notifications for testing, you must do the following:
 
-    1. Change the app’s bundle identifier in Xcode.
+    1. Change the app’s bundle identifier in Xcode to some value that works for your Apple ID, e.g. `com.yourdomain.SilentPush`.
     2. Register an App ID and create a push certificate (for the development environment) on [Apple's developer site](https://developer.apple.com/account/ios/identifier/bundle).
 
-3. Run the app. On first launch the app will ask you for permission to send you notifications. It does this _only_ to be able to set the app icon badge number on the home screen (incremented whenever the app receives a silent push or background fetch event while it is in the background), so I suggest you allow notifications. No user permission is required for an app to receive silent push notifications, however, so feel free to not give permission.
+3. Run the app from Xcode. On first launch the app will ask you for permission to send you notifications. It does this _only_ to be able to set the app icon badge number on the home screen (incremented whenever the app receives a silent push or background fetch event while it is in the background), so I suggest you allow notifications. No user permission is required for an app to receive silent push notifications, however, so feel free to not give permission.
 
 4. Copy the device’s push notification token in the Xcode console, e.g.:
 
