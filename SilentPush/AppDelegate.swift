@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         rootViewController.viewModel = ViewModel(store: eventsStore)
 
+        // Tell the OS to wake us in the background as often as possible.
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 
         // Ask for permission to display badge numbers on the app icon.
