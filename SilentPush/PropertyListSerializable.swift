@@ -23,8 +23,8 @@ extension PushNotification: PropertyListSerializable {
         guard let
             dict = propertyList as? [String : AnyObject],
             receivedAt = dict["receivedAt"] as? NSDate,
-            applicationStateRawValue = dict["applicationState"] as? Int,
-            applicationState = UIApplicationState(rawValue: applicationStateRawValue),
+            applicationStatePropertyList = dict["applicationState"],
+            applicationState = UIApplicationState(propertyList: applicationStatePropertyList),
             payload = dict["payload"] as? [NSObject : AnyObject]
         else {
                 return nil
@@ -37,9 +37,32 @@ extension PushNotification: PropertyListSerializable {
     func propertyListRepresentation() -> AnyObject {
         return [
             "receivedAt": receivedAt,
-            "applicationState": applicationStateOnReceipt.rawValue,
+            "applicationState": applicationStateOnReceipt.propertyListRepresentation(),
             "payload": payload
         ]
+    }
+}
+
+extension UIApplicationState: PropertyListSerializable {
+    init?(propertyList: AnyObject) {
+        guard let rawValue = propertyList as? Int else {
+            return nil
+        }
+        self.init(rawValue: rawValue)
+    }
+
+    func propertyListRepresentation() -> AnyObject {
+        return self.rawValue
+    }
+}
+
+extension UIApplicationState: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .Active: return "active"
+        case .Inactive: return "inactive"
+        case .Background: return "background"
+        }
     }
 }
 

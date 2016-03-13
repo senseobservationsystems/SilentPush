@@ -19,6 +19,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100.0
         updateUI()
     }
 
@@ -44,9 +46,13 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MyCell", forIndexPath: indexPath)
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("PushNotificationCell", forIndexPath: indexPath) as? PushNotificationCell else {
+            preconditionFailure("Expected a PushNotificationCell")
+        }
         let notification = viewModel.pushNotifications[indexPath.row]
-        cell.textLabel?.text = String(notification)
+        cell.dateLabel.text = NSDateFormatter.localizedStringFromDate(notification.receivedAt, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
+        cell.applicationStateLabel.text = "Received in app state: \(notification.applicationStateOnReceipt)"
+        cell.payloadLabel.text = String(notification.payload)
         return cell
     }
 }
