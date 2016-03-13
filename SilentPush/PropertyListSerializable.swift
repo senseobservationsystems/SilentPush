@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 protocol PropertyListSerializable: Storable {
     init?(propertyList: AnyObject)
@@ -7,6 +8,7 @@ protocol PropertyListSerializable: Storable {
 
 struct PushNotification {
     let receivedAt: NSDate
+    let applicationStateOnReceipt: UIApplicationState
     let payload: [NSObject : AnyObject]
 }
 
@@ -21,17 +23,21 @@ extension PushNotification: PropertyListSerializable {
         guard let
             dict = propertyList as? [String : AnyObject],
             receivedAt = dict["receivedAt"] as? NSDate,
+            applicationStateRawValue = dict["applicationState"] as? Int,
+            applicationState = UIApplicationState(rawValue: applicationStateRawValue),
             payload = dict["payload"] as? [NSObject : AnyObject]
-            else {
+        else {
                 return nil
         }
         self.receivedAt = receivedAt
+        self.applicationStateOnReceipt = applicationState
         self.payload = payload
     }
 
     func propertyListRepresentation() -> AnyObject {
         return [
             "receivedAt": receivedAt,
+            "applicationState": applicationStateOnReceipt.rawValue,
             "payload": payload
         ]
     }

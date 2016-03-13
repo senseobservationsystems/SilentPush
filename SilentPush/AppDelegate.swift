@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             numberOfNotificationsReceivedWhileInBackgroundStore.value += 1
         }
 
-        let pushNotification = PushNotification(receivedAt: NSDate(), payload: userInfo)
+        let pushNotification = PushNotification(receivedAt: NSDate(), applicationStateOnReceipt: application.applicationState, payload: userInfo)
         pushNotificationsStore.value.elements.insert(pushNotification, atIndex: 0)
 
         completionHandler(.NewData)
