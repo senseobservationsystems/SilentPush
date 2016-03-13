@@ -12,14 +12,13 @@ protocol DataStore {
 
 class UserDefaultsDataStore<Element: PropertyListSerializable>: DataStore {
 
-    let key: String
-    private let defaultValue: Element
-    private let defaults = NSUserDefaults()
-
     init(key: String, defaultValue: Element) {
         self.key = key
         self.defaultValue = defaultValue
     }
+
+    let key: String
+    private let defaultValue: Element
 
     var value: Element {
         get {
@@ -41,6 +40,7 @@ class UserDefaultsDataStore<Element: PropertyListSerializable>: DataStore {
         }
     }
 
+    private let defaults = NSUserDefaults()
     private var updateHandlers: [UserDefaultsDataStore<Element> -> ()] = []
 
     func addUpdateHandler(callback: UserDefaultsDataStore<Element> -> ()) {

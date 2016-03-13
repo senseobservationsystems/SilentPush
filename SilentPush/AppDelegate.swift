@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let numberOfNotificationsReceivedWhileInBackgroundStore = UserDefaultsDataStore<Int>(key: "pushNotificationsReceivedWhileInBackground", defaultValue: 0)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        rootViewController.viewModel = ViewModel(store: pushNotificationsStore)
+
         // Ask for permission to display badge numbers on the app icon.
         // This is not needed to receive silent push notifications.
         // We use the badge to signal when the app got activated in the background upon receipt of a
@@ -28,11 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Register to receive (silent) push notifications
         application.registerForRemoteNotifications()
-
-        rootViewController.pushNotifications = pushNotificationsStore.value.elements
-        pushNotificationsStore.addUpdateHandler { [unowned self] store in
-            self.rootViewController.pushNotifications = store.value.elements
-        }
 
         numberOfNotificationsReceivedWhileInBackgroundStore.addUpdateHandler { store in
             // Update the app icon badge when a we receive a push notification while in the background.
