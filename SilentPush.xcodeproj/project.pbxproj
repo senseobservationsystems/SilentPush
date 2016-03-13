@@ -12,6 +12,8 @@
 		5D8211B81C92D761002E4FF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211B61C92D761002E4FF0 /* Main.storyboard */; };
 		5D8211BA1C92D761002E4FF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211B91C92D761002E4FF0 /* Assets.xcassets */; };
 		5D8211BD1C92D761002E4FF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211BB1C92D761002E4FF0 /* LaunchScreen.storyboard */; };
+		5D8211C51C92EE24002E4FF0 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211C41C92EE24002E4FF0 /* DataStore.swift */; };
+		5D8211C71C95A087002E4FF0 /* PropertyListSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211C61C95A087002E4FF0 /* PropertyListSerializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		5D8211B91C92D761002E4FF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D8211BC1C92D761002E4FF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D8211BE1C92D761002E4FF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D8211C41C92EE24002E4FF0 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		5D8211C61C95A087002E4FF0 /* PropertyListSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListSerializable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				5D8211B21C92D761002E4FF0 /* AppDelegate.swift */,
 				5D8211B41C92D761002E4FF0 /* ViewController.swift */,
+				5D8211C41C92EE24002E4FF0 /* DataStore.swift */,
+				5D8211C61C95A087002E4FF0 /* PropertyListSerializable.swift */,
 				5D8211B61C92D761002E4FF0 /* Main.storyboard */,
 				5D8211BB1C92D761002E4FF0 /* LaunchScreen.storyboard */,
 				5D8211B91C92D761002E4FF0 /* Assets.xcassets */,
@@ -144,7 +150,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8211C71C95A087002E4FF0 /* PropertyListSerializable.swift in Sources */,
 				5D8211B51C92D761002E4FF0 /* ViewController.swift in Sources */,
+				5D8211C51C92EE24002E4FF0 /* DataStore.swift in Sources */,
 				5D8211B31C92D761002E4FF0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +307,7 @@
 				5D8211C31C92D761002E4FF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
