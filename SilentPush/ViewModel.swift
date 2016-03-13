@@ -1,8 +1,8 @@
 class ViewModel {
 
-    init(store: UserDefaultsDataStore<SerializableArray<PushNotification>>) {
-        pushNotificationsStore = store
-        pushNotificationsStore.addUpdateHandler { [weak self] store in
+    init(store: UserDefaultsDataStore<SerializableArray<BackgroundActivity>>) {
+        eventsStore = store
+        eventsStore.addUpdateHandler { [weak self] store in
             guard let `self` = self else {
                 return
             }
@@ -12,15 +12,15 @@ class ViewModel {
         }
     }
 
-    var pushNotificationsStore: UserDefaultsDataStore<SerializableArray<PushNotification>>
-    var pushNotifications: [PushNotification] { return pushNotificationsStore.value.elements }
+    var eventsStore: UserDefaultsDataStore<SerializableArray<BackgroundActivity>>
+    var pushNotifications: [BackgroundActivity] { return eventsStore.value.elements }
 
-    var emptyStateViewHidden: Bool { return !pushNotificationsStore.value.isEmpty }
-    var hasContentViewHidden: Bool { return pushNotificationsStore.value.isEmpty }
-    var clearButtonEnabled: Bool { return !pushNotificationsStore.value.isEmpty }
+    var emptyStateViewHidden: Bool { return !eventsStore.value.isEmpty }
+    var hasContentViewHidden: Bool { return eventsStore.value.isEmpty }
+    var clearButtonEnabled: Bool { return !eventsStore.value.isEmpty }
 
     func deleteAllData() {
-        pushNotificationsStore.value = []
+        eventsStore.value = []
     }
 
     private var updateHandlers: [ViewModel -> ()] = []

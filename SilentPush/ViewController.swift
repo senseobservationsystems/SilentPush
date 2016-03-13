@@ -46,14 +46,23 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("PushNotificationCell", forIndexPath: indexPath) as? PushNotificationCell else {
-            preconditionFailure("Expected a PushNotificationCell")
+        let event = viewModel.pushNotifications[indexPath.row]
+        switch event {
+        case .PushNotification(receivedAt: let receivedAt, applicationStateOnReceipt: let applicationState, payload: let payload):
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("PushNotificationCell", forIndexPath: indexPath) as? PushNotificationCell else {
+                preconditionFailure("Expected a PushNotificationCell")
+            }
+            cell.dateLabel.text = NSDateFormatter.localizedStringFromDate(receivedAt, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
+            cell.applicationStateLabel.text = "Received in app state: \(applicationState)"
+            cell.payloadLabel.text = String(payload)
+            return cell
+        case .BackgroundAppRefresh(receivedAt: let receivedAt):
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("BackgroundAppRefreshCell", forIndexPath: indexPath) as? BackgroundAppRefreshCell else {
+                preconditionFailure("Expected a BackgroundAppRefreshCell")
+            }
+            cell.dateLabel.text = NSDateFormatter.localizedStringFromDate(receivedAt, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
+            return cell
         }
-        let notification = viewModel.pushNotifications[indexPath.row]
-        cell.dateLabel.text = NSDateFormatter.localizedStringFromDate(notification.receivedAt, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
-        cell.applicationStateLabel.text = "Received in app state: \(notification.applicationStateOnReceipt)"
-        cell.payloadLabel.text = String(notification.payload)
-        return cell
     }
 }
 

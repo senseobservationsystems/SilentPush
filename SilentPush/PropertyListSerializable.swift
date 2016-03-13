@@ -6,40 +6,66 @@ protocol PropertyListSerializable: Storable {
     func propertyListRepresentation() -> AnyObject
 }
 
-struct PushNotification {
-    let receivedAt: NSDate
-    let applicationStateOnReceipt: UIApplicationState
-    let payload: [NSObject : AnyObject]
+enum BackgroundActivity {
+    case PushNotification(receivedAt: NSDate, applicationStateOnReceipt: UIApplicationState, payload: [NSObject : AnyObject])
+    case BackgroundAppRefresh(receivedAt: NSDate)
 }
 
-extension PushNotification: CustomStringConvertible {
+extension BackgroundActivity: CustomStringConvertible {
     var description: String {
-        return "PushNotification: \(receivedAt) – payload: \(payload)"
+        switch self {
+        case .PushNotification(receivedAt: let receivedAt, applicationStateOnReceipt: let applicationState, payload: let payload):
+            return "PushNotification: \(receivedAt) – \(applicationState) – \(payload)"
+        case .BackgroundAppRefresh(receivedAt: let receivedAt):
+            return "Background App Refresh: \(receivedAt)"
+        }
     }
 }
 
-extension PushNotification: PropertyListSerializable {
+extension BackgroundActivity: PropertyListSerializable {
     init?(propertyList: AnyObject) {
         guard let
             dict = propertyList as? [String : AnyObject],
-            receivedAt = dict["receivedAt"] as? NSDate,
-            applicationStatePropertyList = dict["applicationState"],
-            applicationState = UIApplicationState(propertyList: applicationStatePropertyList),
-            payload = dict["payload"] as? [NSObject : AnyObject]
+            type = dict["type"] as? String
         else {
-                return nil
+            return nil
         }
-        self.receivedAt = receivedAt
-        self.applicationStateOnReceipt = applicationState
-        self.payload = payload
+        switch type {
+            case "PushNotification":
+                guard let
+                    receivedAt = dict["receivedAt"] as? NSDate,
+                    applicationStatePropertyList = dict["applicationState"],
+                    applicationState = UIApplicationState(propertyList: applicationStatePropertyList),
+                    payload = dict["payload"] as? [NSObject : AnyObject]
+                else {
+                    return nil
+                }
+                self = .PushNotification(receivedAt: receivedAt, applicationStateOnReceipt: applicationState, payload: payload)
+            case "BackgroundAppRefresh":
+                guard let receivedAt = dict["receivedAt"] as? NSDate else {
+                    return nil
+                }
+                self = .BackgroundAppRefresh(receivedAt: receivedAt)
+            default:
+                fatalError("Unknown event type: \(type)")
+        }
     }
 
     func propertyListRepresentation() -> AnyObject {
-        return [
-            "receivedAt": receivedAt,
-            "applicationState": applicationStateOnReceipt.propertyListRepresentation(),
-            "payload": payload
-        ]
+        switch self {
+        case .PushNotification(receivedAt: let receivedAt, applicationStateOnReceipt: let applicationState, payload: let payload):
+            return [
+                "type": "PushNotification",
+                "receivedAt": receivedAt,
+                "applicationState": applicationState.propertyListRepresentation(),
+                "payload": payload
+            ]
+        case .BackgroundAppRefresh(receivedAt: let receivedAt):
+            return [
+                "type": "BackgroundAppRefresh",
+                "receivedAt": receivedAt
+            ]
+        }
     }
 }
 
