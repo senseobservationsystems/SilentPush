@@ -34,24 +34,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Ask for permission to display badge numbers on the app icon.
         // This is not needed to receive silent push notifications.
         // We use the badge to signal when the app got activated in the background upon receipt of an event.
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Badge], categories: nil)
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge], categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
 
         // Register to receive (silent) push notifications
         application.registerForRemoteNotifications()
-
-        numberOfEventsReceivedWhileInBackgroundStore.addUpdateHandler { store in
-            // Update the app icon badge when a we receive an event while in the background.
-            dispatch_async(dispatch_get_main_queue()) {
-                UIApplication.sharedApplication().applicationIconBadgeNumber = store.value
-            }
-        }
 
         return true
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         numberOfEventsReceivedWhileInBackgroundStore.value = 0
+        application.applicationIconBadgeNumber = numberOfEventsReceivedWhileInBackgroundStore.value
     }
 
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
@@ -69,12 +63,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         print("\(#function): \(userInfo)")
 
-        if application.applicationState != .Active {
-            numberOfEventsReceivedWhileInBackgroundStore.value += 1
-        }
-
         let event = BackgroundActivity.PushNotification(receivedAt: NSDate(), applicationStateOnReceipt: application.applicationState, payload: userInfo)
         eventsStore.value.elements.insert(event, atIndex: 0)
+        if application.applicationState != .Active {
+            numberOfEventsReceivedWhileInBackgroundStore.value += 1
+            let localNotification = UILocalNotification(backgroundActivity: event, badgeNumber: numberOfEventsReceivedWhileInBackgroundStore.value)
+            application.scheduleLocalNotification(localNotification)
+        }
 
         // Always tell the OS there has been new data so we get called again.
         completionHandler(.NewData)
@@ -83,14 +78,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         print("\(#function)")
 
-        if application.applicationState != .Active {
-            numberOfEventsReceivedWhileInBackgroundStore.value += 1
-        }
-
         let event = BackgroundActivity.BackgroundAppRefresh(receivedAt: NSDate())
         eventsStore.value.elements.insert(event, atIndex: 0)
+        if application.applicationState != .Active {
+            numberOfEventsReceivedWhileInBackgroundStore.value += 1
+            let localNotification = UILocalNotification(backgroundActivity: event, badgeNumber: numberOfEventsReceivedWhileInBackgroundStore.value)
+            application.scheduleLocalNotification(localNotification)
+        }
 
         // Always tell the OS there has been new data so we get called again.
         completionHandler(.NewData)
+    }
+}
+
+extension UILocalNotification {
+    convenience init(backgroundActivity: BackgroundActivity, badgeNumber: Int = 0) {
+        self.init()
+        applicationIconBadgeNumber = badgeNumber
+        switch backgroundActivity {
+        case .PushNotification(receivedAt: _, applicationStateOnReceipt: _, payload: let payload):
+            alertBody = "Push Notification: \(payload)"
+        case .BackgroundAppRefresh(receivedAt: _):
+            alertBody = "Background Fetch"
+        }
     }
 }
