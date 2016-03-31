@@ -3,7 +3,7 @@ import Foundation
 protocol Storable {}
 
 protocol DataStore {
-    typealias Element: Storable
+    associatedtype Element: Storable
 
     var value: Element { get set }
 

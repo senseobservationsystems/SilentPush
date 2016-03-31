@@ -55,19 +55,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        print("\(__FUNCTION__): \(notificationSettings)")
+        print("\(#function): \(notificationSettings)")
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        print("\(__FUNCTION__): \(deviceToken)")
+        print("\(#function): \(deviceToken)")
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("\(__FUNCTION__): \(error)")
+        print("\(#function): \(error)")
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        print("\(__FUNCTION__): \(userInfo)")
+        print("\(#function): \(userInfo)")
 
         if application.applicationState != .Active {
             numberOfEventsReceivedWhileInBackgroundStore.value += 1
@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        print("\(__FUNCTION__)")
+        print("\(#function)")
 
         if application.applicationState != .Active {
             numberOfEventsReceivedWhileInBackgroundStore.value += 1
