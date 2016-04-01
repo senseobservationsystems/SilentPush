@@ -1,3 +1,5 @@
+import Foundation
+
 class ViewModel {
 
     init(store: UserDefaultsDataStore<SerializableArray<BackgroundActivity>>) {
@@ -23,22 +25,29 @@ class ViewModel {
         eventsStore.value = []
     }
 
-    private var dummyMemory: [Int64]?
+    private var dummyMemory: [Int64] = []
 
     var hasAllocatedDummyMemory: Bool {
-        return dummyMemory != nil
+        return !dummyMemory.isEmpty
     }
 
     /// Allocates a ton of memory. Useful if you want the OS to kill the app while it is in the
     /// background. You can use Activity Monitor in Instruments to check when the app gets killed
     /// without the debugger attached.
     func allocateDummyMemory() {
-        dummyMemory = Array(count: 50_000_000, repeatedValue: 0)
+        // Aim for 2/3 of the device's memory.
+        let bytesToAllocate: UInt64 = NSProcessInfo.processInfo().physicalMemory / 3 * 2
+        let elementsToAllocate = Int(bytesToAllocate / UInt64(strideof(Int64)))
+        dummyMemory.removeAll(keepCapacity: true)
+        dummyMemory.reserveCapacity(elementsToAllocate)
+        for n in 1...Int64(elementsToAllocate) {
+            dummyMemory.append(n)
+        }
         notifyUpdateHandlers()
     }
 
     func freeDummyMemory() {
-        dummyMemory = nil
+        dummyMemory.removeAll()
         notifyUpdateHandlers()
     }
 

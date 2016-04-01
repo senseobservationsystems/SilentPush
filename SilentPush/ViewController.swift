@@ -45,7 +45,9 @@ class ViewController: UIViewController {
             viewModel.freeDummyMemory()
         } else {
             let alert = UIAlertController(title: "Allocate some dummy memory", message: "This allocates a ton of memory. Do this to make it much more likely that the OS will kill the app while it is in the background. You can use Activity Monitor in Instruments to check when the app gets killed without having the debugger attached.", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Proceed", style: .Default) { [weak self] _ in self?.viewModel.allocateDummyMemory() })
+            alert.addAction(UIAlertAction(title: "Proceed", style: .Default) { [weak self] _ in
+                self?.viewModel.allocateDummyMemory()
+            })
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
             presentViewController(alert, animated: true, completion: nil)
         }

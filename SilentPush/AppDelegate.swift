@@ -89,6 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Always tell the OS there has been new data so we get called again.
         completionHandler(.NewData)
     }
+
+    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+        print("\(#function)")
+    }
 }
 
 extension UILocalNotification {
