@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let eventsStore = UserDefaultsDataStore<SerializableArray<BackgroundActivity>>(key: "backgroundActivityEvents", defaultValue: [])
 
     /// Stores the number of background activity events our app received while it was in the background.
-    /// Reset to 0 the next time the app comes into the foreground.
+    /// Should be reset to 0 the next time the app comes into the foreground.
     let numberOfEventsReceivedWhileInBackgroundStore = UserDefaultsDataStore<Int>(key: "eventsReceivedWhileInBackground", defaultValue: 0)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -31,9 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Tell the OS to wake us in the background as often as possible.
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
 
-        // Ask for permission to display badge numbers on the app icon.
+        // Ask for permission to display alerts and badge numbers on the app icon.
         // This is not needed to receive silent push notifications.
-        // We use the badge to signal when the app got activated in the background upon receipt of an event.
+        // We use the badge and alerts to signal when the app got activated in the background upon receipt of an event.
         let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge], categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
 
