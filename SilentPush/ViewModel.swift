@@ -11,7 +11,7 @@ class ViewModel {
     }
 
     var eventsStore: UserDefaultsDataStore<SerializableArray<BackgroundActivity>>
-    var pushNotifications: [BackgroundActivity] { return eventsStore.value.elements }
+    var events: [BackgroundActivity] { return eventsStore.value.elements }
 
     var emptyStateViewHidden: Bool { return !eventsStore.value.isEmpty }
     var hasContentViewHidden: Bool { return eventsStore.value.isEmpty }
