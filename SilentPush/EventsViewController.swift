@@ -1,16 +1,15 @@
 import UIKit
 
-class ViewController: UIViewController {
+class EventsViewController: UIViewController {
 
     @IBOutlet weak var emptyStateView: UIView!
     @IBOutlet weak var hasContentView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var clearButton: UIBarButtonItem!
-    @IBOutlet weak var allocMemoryButton: UIBarButtonItem!
 
-    var viewModel: ViewModel! {
+    var viewModel: EventsViewModel! {
         didSet {
-            viewModel.addUpdateHandler { _ in
+            viewModel.addObserver { _ in
                 dispatch_async(dispatch_get_main_queue()) { [weak self] in
                     self?.updateUI()
                 }
@@ -31,30 +30,16 @@ class ViewController: UIViewController {
         emptyStateView?.hidden = viewModel.emptyStateViewHidden
         hasContentView?.hidden = viewModel.hasContentViewHidden
         clearButton?.enabled = viewModel.clearButtonEnabled
-        allocMemoryButton?.enabled = viewModel.allocMemoryButtonEnabled
-        allocMemoryButton?.title = viewModel.allocMemoryButtonTitle
         tableView?.reloadData()
     }
 
-    @IBAction func deleteAllData(sender: UIBarButtonItem) {
+    @IBAction func clearList(sender: UIBarButtonItem) {
         viewModel.deleteAllData()
     }
 
-    @IBAction func fillMemory(sender: UIBarButtonItem) {
-        if viewModel.hasAllocatedDummyMemory {
-            viewModel.freeDummyMemory()
-        } else {
-            let alert = UIAlertController(title: "Allocate some dummy memory", message: "This allocates a ton of memory. Do this to make it much more likely that the OS will kill the app while it is in the background. You can use Activity Monitor in Instruments to check when the app gets killed without having the debugger attached.", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Proceed", style: .Default) { [weak self] _ in
-                self?.viewModel.allocateDummyMemory()
-            })
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-            presentViewController(alert, animated: true, completion: nil)
-        }
-    }
 }
 
-extension ViewController: UITableViewDataSource {
+extension EventsViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -84,4 +69,4 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {}
+extension EventsViewController: UITableViewDelegate {}

@@ -5,16 +5,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var rootViewController: ViewController {
-        guard let
-            navigationController = window?.rootViewController as? UINavigationController,
-            topViewController = navigationController.viewControllers.first as? ViewController
-        else {
-            preconditionFailure("View controller not found")
-        }
-        return topViewController
-    }
-
     /// Stores the sequence of "background acitivy events" our app received. Possible event types are:
     /// - Push notifications (regardless whether received while app is in the background or foreground)
     /// - Background fetch wakeups
@@ -26,7 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        rootViewController.viewModel = ViewModel(store: eventsStore)
+        guard
+            let tabBarController = window?.rootViewController as? UITabBarController,
+            let tabBarChildViewControllers = tabBarController.viewControllers where tabBarChildViewControllers.count >= 2,
+            let eventsTabNavController = tabBarChildViewControllers[0] as? UINavigationController,
+            let eventsViewController = eventsTabNavController.viewControllers.first as? EventsViewController,
+            let fillMemoryTabNavController = tabBarChildViewControllers[1] as? UINavigationController,
+            let fillMemoryViewController = fillMemoryTabNavController.viewControllers.first as? FillMemoryViewController
+        else {
+            preconditionFailure("View controllers not found")
+        }
+
+        eventsViewController.viewModel = EventsViewModel(store: eventsStore)
+        fillMemoryViewController.viewModel = FillMemoryViewModel()
 
         // Tell the OS to wake us in the background as often as possible.
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
@@ -93,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidReceiveMemoryWarning(application: UIApplication) {
         print("\(#function)")
     }
+
 }
 
 extension UILocalNotification {

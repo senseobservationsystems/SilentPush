@@ -7,29 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D10F8161CAED2BD00EE6CC8 /* FillMemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D10F8151CAED2BD00EE6CC8 /* FillMemoryViewController.swift */; };
+		5D10F8181CAED37500EE6CC8 /* FillMemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D10F8171CAED37500EE6CC8 /* FillMemoryViewModel.swift */; };
 		5D8211B31C92D761002E4FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211B21C92D761002E4FF0 /* AppDelegate.swift */; };
-		5D8211B51C92D761002E4FF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211B41C92D761002E4FF0 /* ViewController.swift */; };
+		5D8211B51C92D761002E4FF0 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211B41C92D761002E4FF0 /* EventsViewController.swift */; };
 		5D8211B81C92D761002E4FF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211B61C92D761002E4FF0 /* Main.storyboard */; };
 		5D8211BA1C92D761002E4FF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211B91C92D761002E4FF0 /* Assets.xcassets */; };
 		5D8211BD1C92D761002E4FF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211BB1C92D761002E4FF0 /* LaunchScreen.storyboard */; };
 		5D8211C51C92EE24002E4FF0 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211C41C92EE24002E4FF0 /* DataStore.swift */; };
 		5D8211C71C95A087002E4FF0 /* PropertyListSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211C61C95A087002E4FF0 /* PropertyListSerializable.swift */; };
-		5D8211CB1C95B9E4002E4FF0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211CA1C95B9E4002E4FF0 /* ViewModel.swift */; };
+		5D8211CB1C95B9E4002E4FF0 /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211CA1C95B9E4002E4FF0 /* EventsViewModel.swift */; };
 		5D8211CD1C95C80E002E4FF0 /* PushNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211CC1C95C80E002E4FF0 /* PushNotificationCell.swift */; };
 		5D8211CF1C95D405002E4FF0 /* BackgroundAppRefreshCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211CE1C95D405002E4FF0 /* BackgroundAppRefreshCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D10F8151CAED2BD00EE6CC8 /* FillMemoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillMemoryViewController.swift; sourceTree = "<group>"; };
+		5D10F8171CAED37500EE6CC8 /* FillMemoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillMemoryViewModel.swift; sourceTree = "<group>"; };
 		5D8211AF1C92D761002E4FF0 /* SilentPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SilentPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D8211B21C92D761002E4FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5D8211B41C92D761002E4FF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5D8211B41C92D761002E4FF0 /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		5D8211B71C92D761002E4FF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5D8211B91C92D761002E4FF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D8211BC1C92D761002E4FF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D8211BE1C92D761002E4FF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D8211C41C92EE24002E4FF0 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		5D8211C61C95A087002E4FF0 /* PropertyListSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListSerializable.swift; sourceTree = "<group>"; };
-		5D8211CA1C95B9E4002E4FF0 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		5D8211CA1C95B9E4002E4FF0 /* EventsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 		5D8211CC1C95C80E002E4FF0 /* PushNotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationCell.swift; sourceTree = "<group>"; };
 		5D8211CE1C95D405002E4FF0 /* BackgroundAppRefreshCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,8 +69,10 @@
 			isa = PBXGroup;
 			children = (
 				5D8211B21C92D761002E4FF0 /* AppDelegate.swift */,
-				5D8211B41C92D761002E4FF0 /* ViewController.swift */,
-				5D8211CA1C95B9E4002E4FF0 /* ViewModel.swift */,
+				5D8211B41C92D761002E4FF0 /* EventsViewController.swift */,
+				5D8211CA1C95B9E4002E4FF0 /* EventsViewModel.swift */,
+				5D10F8151CAED2BD00EE6CC8 /* FillMemoryViewController.swift */,
+				5D10F8171CAED37500EE6CC8 /* FillMemoryViewModel.swift */,
 				5D8211C41C92EE24002E4FF0 /* DataStore.swift */,
 				5D8211C61C95A087002E4FF0 /* PropertyListSerializable.swift */,
 				5D8211CC1C95C80E002E4FF0 /* PushNotificationCell.swift */,
@@ -159,11 +165,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D10F8161CAED2BD00EE6CC8 /* FillMemoryViewController.swift in Sources */,
 				5D8211CD1C95C80E002E4FF0 /* PushNotificationCell.swift in Sources */,
-				5D8211CB1C95B9E4002E4FF0 /* ViewModel.swift in Sources */,
+				5D8211CB1C95B9E4002E4FF0 /* EventsViewModel.swift in Sources */,
 				5D8211C71C95A087002E4FF0 /* PropertyListSerializable.swift in Sources */,
 				5D8211CF1C95D405002E4FF0 /* BackgroundAppRefreshCell.swift in Sources */,
-				5D8211B51C92D761002E4FF0 /* ViewController.swift in Sources */,
+				5D10F8181CAED37500EE6CC8 /* FillMemoryViewModel.swift in Sources */,
+				5D8211B51C92D761002E4FF0 /* EventsViewController.swift in Sources */,
 				5D8211C51C92EE24002E4FF0 /* DataStore.swift in Sources */,
 				5D8211B31C92D761002E4FF0 /* AppDelegate.swift in Sources */,
 			);
