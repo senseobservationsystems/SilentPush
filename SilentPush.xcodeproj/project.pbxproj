@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27A5DE1E1E49E74400B90D97 /* SilentPush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SilentPush.entitlements; sourceTree = "<group>"; };
 		5D10F8151CAED2BD00EE6CC8 /* FillMemoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillMemoryViewController.swift; sourceTree = "<group>"; };
 		5D10F8171CAED37500EE6CC8 /* FillMemoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillMemoryViewModel.swift; sourceTree = "<group>"; };
 		5D8211AF1C92D761002E4FF0 /* SilentPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SilentPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +69,7 @@
 		5D8211B11C92D761002E4FF0 /* SilentPush */ = {
 			isa = PBXGroup;
 			children = (
+				27A5DE1E1E49E74400B90D97 /* SilentPush.entitlements */,
 				5D8211B21C92D761002E4FF0 /* AppDelegate.swift */,
 				5D8211B41C92D761002E4FF0 /* EventsViewController.swift */,
 				5D8211CA1C95B9E4002E4FF0 /* EventsViewModel.swift */,
@@ -117,7 +119,7 @@
 				TargetAttributes = {
 					5D8211AE1C92D761002E4FF0 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = UQBP8YQ495;
+						DevelopmentTeam = MT2K5TW3U7;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -284,13 +286,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SilentPush/SilentPush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = MT2K5TW3U7;
 				INFOPLIST_FILE = SilentPush/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.olebegemann.SilentPush;
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.sense.silent-push";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -298,13 +303,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SilentPush/SilentPush.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = MT2K5TW3U7;
 				INFOPLIST_FILE = SilentPush/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.olebegemann.SilentPush;
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.sense.silent-push";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
