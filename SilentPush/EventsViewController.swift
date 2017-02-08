@@ -6,6 +6,7 @@ class EventsViewController: UIViewController {
     @IBOutlet weak var hasContentView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var clearButton: UIBarButtonItem!
+    @IBOutlet weak var exportButton: UIBarButtonItem!
 
     var viewModel: EventsViewModel! {
         didSet {
@@ -36,7 +37,14 @@ class EventsViewController: UIViewController {
     @IBAction func clearList(sender: UIBarButtonItem) {
         viewModel.deleteAllData()
     }
-
+    
+    @IBAction func exportList(sender: UIBarButtonItem) {
+        let eventsString = [viewModel.events.debugDescription]
+        let activityVC = UIActivityViewController(activityItems: eventsString,
+                                                  applicationActivities: nil)
+        self.presentViewController(activityVC, animated: true, completion: nil)
+        
+    }
 }
 
 extension EventsViewController: UITableViewDataSource {
