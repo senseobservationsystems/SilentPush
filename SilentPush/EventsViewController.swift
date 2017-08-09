@@ -11,7 +11,7 @@ class EventsViewController: UIViewController {
     var viewModel: EventsViewModel! {
         didSet {
             viewModel.addObserver { _ in
-                dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                DispatchQueue.main.async() { [weak self] in
                     self?.updateUI()
                 }
             }
@@ -28,9 +28,9 @@ class EventsViewController: UIViewController {
     }
 
     func updateUI() {
-        emptyStateView?.hidden = viewModel.emptyStateViewHidden
-        hasContentView?.hidden = viewModel.hasContentViewHidden
-        clearButton?.enabled = viewModel.clearButtonEnabled
+        emptyStateView?.isHidden = viewModel.emptyStateViewHidden
+        hasContentView?.isHidden = viewModel.hasContentViewHidden
+        clearButton?.isEnabled = viewModel.clearButtonEnabled
         tableView?.reloadData()
     }
 
@@ -42,8 +42,7 @@ class EventsViewController: UIViewController {
         let eventsString = [viewModel.events.debugDescription]
         let activityVC = UIActivityViewController(activityItems: eventsString,
                                                   applicationActivities: nil)
-        self.presentViewController(activityVC, animated: true, completion: nil)
-        
+        self.present(activityVC, animated: true, completion: nil)
     }
 }
 
@@ -52,26 +51,26 @@ extension EventsViewController: UITableViewDataSource {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.events.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event = viewModel.events[indexPath.row]
         switch event {
         case .PushNotification(receivedAt: let receivedAt, applicationStateOnReceipt: let applicationState, payload: let payload):
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("PushNotificationCell", forIndexPath: indexPath) as? PushNotificationCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PushNotificationCell", for: indexPath) as? PushNotificationCell else {
                 preconditionFailure("Expected a PushNotificationCell")
             }
-            cell.dateLabel.text = NSDateFormatter.localizedStringFromDate(receivedAt, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
+            cell.dateLabel.text = DateFormatter.localizedString(from: receivedAt, dateStyle: .medium, timeStyle: .medium)
             cell.applicationStateLabel.text = "Received in app state: \(applicationState)"
-            cell.payloadLabel.text = String(payload)
+            cell.payloadLabel.text = String(describing: payload)
             return cell
         case .BackgroundAppRefresh(receivedAt: let receivedAt):
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("BackgroundAppRefreshCell", forIndexPath: indexPath) as? BackgroundAppRefreshCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "BackgroundAppRefreshCell", for: indexPath) as? BackgroundAppRefreshCell else {
                 preconditionFailure("Expected a BackgroundAppRefreshCell")
             }
-            cell.dateLabel.text = NSDateFormatter.localizedStringFromDate(receivedAt, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
+            cell.dateLabel.text = DateFormatter.localizedString(from: receivedAt, dateStyle: .medium, timeStyle: .medium)
             return cell
         }
     }

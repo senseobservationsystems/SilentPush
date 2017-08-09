@@ -12,7 +12,7 @@ class FillMemoryViewController: UIViewController {
     var viewModel: FillMemoryViewModel! {
         didSet {
             viewModel.addObserver { _ in
-                dispatch_async(dispatch_get_main_queue()) { [weak self] in
+                DispatchQueue.main.async() { [weak self] in
                     self?.updateUI()
                 }
             }
@@ -32,8 +32,8 @@ class FillMemoryViewController: UIViewController {
 
         currentAllocAmountLabel?.text = viewModel.currentAllocAmountLabelText
 
-        allocMemoryButton?.enabled = viewModel.allocMemoryButtonEnabled
-        allocMemoryButton?.setTitle(viewModel.allocMemoryButtonTitle, forState: .Normal)
+        allocMemoryButton?.isEnabled = viewModel.allocMemoryButtonEnabled
+        allocMemoryButton?.setTitle(viewModel.allocMemoryButtonTitle, for: .normal)
 
         if viewModel.spinnerAnimating {
             spinner?.startAnimating()

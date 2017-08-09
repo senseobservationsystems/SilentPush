@@ -1,9 +1,9 @@
 protocol Observable {
-    func addObserver(callback: Self -> ())
+    func addObserver(callback: @escaping (Self) -> ())
     func notifyObservers()
 }
 
-class EventsViewModel {
+final class EventsViewModel {
 
     init(store: UserDefaultsDataStore<SerializableArray<BackgroundActivity>>) {
         eventsStore = store
@@ -19,21 +19,21 @@ class EventsViewModel {
     var events: [BackgroundActivity] { return eventsStore.value.elements }
 
     var emptyStateViewHidden: Bool { return !eventsStore.value.isEmpty }
-    var hasContentViewHidden: Bool { return eventsStore.value.isEmpty }
+    var hasContentViewHidden: Bool { return !eventsStore.value.isEmpty }
     var clearButtonEnabled: Bool { return !eventsStore.value.isEmpty }
 
     func deleteAllData() {
         eventsStore.value = []
     }
 
-    private var observers: [EventsViewModel -> ()] = []
+    fileprivate var observers: [(EventsViewModel) -> ()] = []
 }
 
 extension EventsViewModel: Observable {
-    func addObserver(callback: EventsViewModel -> ()) {
+    func addObserver(callback: @escaping (EventsViewModel) -> ()) {
         observers.append(callback)
     }
-
+    
     func notifyObservers() {
         for callback in observers {
             callback(self)

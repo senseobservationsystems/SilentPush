@@ -1,28 +1,28 @@
 import Foundation
 
-protocol Storable {}
+protocol Storable {} // ?
 
 protocol DataStore {
+    
     associatedtype Element: Storable
-
-    var value: Element { get set }
-
-    func addUpdateHandler(callback: Self -> ())
+    
+    var value: Element { get set } // ?
+    
+    func addUpdateHandler(callback: @escaping (Self) -> ())
 }
 
-class UserDefaultsDataStore<Element: PropertyListSerializable>: DataStore {
-
+final class UserDefaultsDataStore<Element: PropertyListSerializable>: DataStore {
     init(key: String, defaultValue: Element) {
         self.key = key
         self.defaultValue = defaultValue
     }
-
+    
     let key: String
     private let defaultValue: Element
-
+    
     var value: Element {
         get {
-            guard let plist = defaults.objectForKey(key) else {
+            guard let plist = defaults.object(forKey: key) else {
                 return defaultValue
             }
             guard let v = Element.init(propertyList: plist) else {
@@ -30,21 +30,21 @@ class UserDefaultsDataStore<Element: PropertyListSerializable>: DataStore {
             }
             return v
         }
-
+        
         set {
             let plist = newValue.propertyListRepresentation()
-            defaults.setObject(plist, forKey: key)
+            defaults.set(plist, forKey: key)
             for callback in updateHandlers {
                 callback(self)
             }
         }
     }
-
-    private let defaults = NSUserDefaults()
-    private var updateHandlers: [UserDefaultsDataStore<Element> -> ()] = []
-
-    func addUpdateHandler(callback: UserDefaultsDataStore<Element> -> ()) {
+    
+    private let defaults = UserDefaults()
+    private var updateHandlers: [(UserDefaultsDataStore<Element>) -> ()] = []
+    
+    func addUpdateHandler(callback: @escaping (UserDefaultsDataStore<Element>) -> ()) {
         updateHandlers.append(callback)
     }
-
 }
+

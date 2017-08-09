@@ -2,13 +2,13 @@ import Foundation
 import UIKit
 
 protocol PropertyListSerializable: Storable {
-    init?(propertyList: AnyObject)
-    func propertyListRepresentation() -> AnyObject
+    init?(propertyList: Any)
+    func propertyListRepresentation() -> Any
 }
 
 enum BackgroundActivity {
-    case PushNotification(receivedAt: NSDate, applicationStateOnReceipt: UIApplicationState, payload: [NSObject : AnyObject])
-    case BackgroundAppRefresh(receivedAt: NSDate)
+    case PushNotification(receivedAt: Date, applicationStateOnReceipt: UIApplicationState, payload: [NSObject : Any])
+    case BackgroundAppRefresh(receivedAt: Date)
 }
 
 extension BackgroundActivity: CustomStringConvertible {
@@ -23,26 +23,26 @@ extension BackgroundActivity: CustomStringConvertible {
 }
 
 extension BackgroundActivity: PropertyListSerializable {
-    init?(propertyList: AnyObject) {
+    init?(propertyList: Any) {
         guard let
-            dict = propertyList as? [String : AnyObject],
-            type = dict["type"] as? String
+            dict = propertyList as? [String : Any],
+            let type = dict["type"] as? String
         else {
             return nil
         }
         switch type {
             case "PushNotification":
                 guard let
-                    receivedAt = dict["receivedAt"] as? NSDate,
-                    applicationStatePropertyList = dict["applicationState"],
-                    applicationState = UIApplicationState(propertyList: applicationStatePropertyList),
-                    payload = dict["payload"] as? [NSObject : AnyObject]
+                    receivedAt = dict["receivedAt"] as? Date,
+                    let applicationStatePropertyList = dict["applicationState"],
+                    let applicationState = UIApplicationState(propertyList: applicationStatePropertyList),
+                    let payload = dict["payload"] as? [NSObject : Any]
                 else {
                     return nil
                 }
                 self = .PushNotification(receivedAt: receivedAt, applicationStateOnReceipt: applicationState, payload: payload)
             case "BackgroundAppRefresh":
-                guard let receivedAt = dict["receivedAt"] as? NSDate else {
+                guard let receivedAt = dict["receivedAt"] as? Date else {
                     return nil
                 }
                 self = .BackgroundAppRefresh(receivedAt: receivedAt)
@@ -51,7 +51,7 @@ extension BackgroundActivity: PropertyListSerializable {
         }
     }
 
-    func propertyListRepresentation() -> AnyObject {
+    func propertyListRepresentation() -> Any {
         switch self {
         case .PushNotification(receivedAt: let receivedAt, applicationStateOnReceipt: let applicationState, payload: let payload):
             return [
@@ -70,14 +70,14 @@ extension BackgroundActivity: PropertyListSerializable {
 }
 
 extension UIApplicationState: PropertyListSerializable {
-    init?(propertyList: AnyObject) {
+    init?(propertyList: Any) {
         guard let rawValue = propertyList as? Int else {
             return nil
         }
         self.init(rawValue: rawValue)
     }
 
-    func propertyListRepresentation() -> AnyObject {
+    func propertyListRepresentation() -> Any {
         return self.rawValue
     }
 }
@@ -85,23 +85,23 @@ extension UIApplicationState: PropertyListSerializable {
 extension UIApplicationState: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .Active: return "active"
-        case .Inactive: return "inactive"
-        case .Background: return "background"
+        case .active: return "active"
+        case .inactive: return "inactive"
+        case .background: return "background"
         }
     }
 }
 
 extension Int: PropertyListSerializable {
-    init?(propertyList: AnyObject) {
+    init?(propertyList: Any) {
         guard let value = propertyList as? Int else {
             return nil
         }
         self = value
     }
 
-    func propertyListRepresentation() -> AnyObject {
-        return self
+    func propertyListRepresentation() -> Any {
+        return self as Any
     }
 }
 
@@ -122,7 +122,12 @@ struct SerializableArray<Element: PropertyListSerializable> {
     }
 }
 
-extension SerializableArray: CollectionType {
+extension SerializableArray: Collection {
+    func index(after i: Int) -> Int {
+        guard i != endIndex else {fatalError("Cannnot increment endIndex") }
+        return i + 1
+    }
+    
     var startIndex: Int {
         return elements.startIndex
     }
@@ -143,8 +148,8 @@ extension SerializableArray: ArrayLiteralConvertible {
 }
 
 extension SerializableArray: PropertyListSerializable {
-    init?(propertyList: AnyObject) {
-        guard let plistElements = propertyList as? [AnyObject] else {
+    init?(propertyList: Any) {
+        guard let plistElements = propertyList as? [Any] else {
             return nil
         }
         let deserializedElements = plistElements.flatMap { element in
@@ -153,7 +158,7 @@ extension SerializableArray: PropertyListSerializable {
         self.init(deserializedElements)
     }
 
-    func propertyListRepresentation() -> AnyObject {
+    func propertyListRepresentation() -> Any {
         return self.map { $0.propertyListRepresentation() }
     }
 }
