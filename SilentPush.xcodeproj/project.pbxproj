@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2716D0091F43A15000EAE3F2 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211B41C92D761002E4FF0 /* EventsViewController.swift */; };
 		5D10F8161CAED2BD00EE6CC8 /* FillMemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D10F8151CAED2BD00EE6CC8 /* FillMemoryViewController.swift */; };
 		5D10F8181CAED37500EE6CC8 /* FillMemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D10F8171CAED37500EE6CC8 /* FillMemoryViewModel.swift */; };
 		5D8211B31C92D761002E4FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211B21C92D761002E4FF0 /* AppDelegate.swift */; };
-		5D8211B51C92D761002E4FF0 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8211B41C92D761002E4FF0 /* EventsViewController.swift */; };
 		5D8211B81C92D761002E4FF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211B61C92D761002E4FF0 /* Main.storyboard */; };
 		5D8211BA1C92D761002E4FF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211B91C92D761002E4FF0 /* Assets.xcassets */; };
 		5D8211BD1C92D761002E4FF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D8211BB1C92D761002E4FF0 /* LaunchScreen.storyboard */; };
@@ -173,9 +173,9 @@
 				5D8211C71C95A087002E4FF0 /* PropertyListSerializable.swift in Sources */,
 				5D8211CF1C95D405002E4FF0 /* BackgroundAppRefreshCell.swift in Sources */,
 				5D10F8181CAED37500EE6CC8 /* FillMemoryViewModel.swift in Sources */,
-				5D8211B51C92D761002E4FF0 /* EventsViewController.swift in Sources */,
 				5D8211C51C92EE24002E4FF0 /* DataStore.swift in Sources */,
 				5D8211B31C92D761002E4FF0 /* AppDelegate.swift in Sources */,
+				2716D0091F43A15000EAE3F2 /* EventsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +295,7 @@
 				INFOPLIST_FILE = SilentPush/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.sense.silent-push";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.sense.silent-push-ios11";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -313,7 +313,7 @@
 				INFOPLIST_FILE = SilentPush/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.sense.silent-push";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.sense.silent-push-ios11";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;

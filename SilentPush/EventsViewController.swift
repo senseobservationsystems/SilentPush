@@ -34,11 +34,11 @@ class EventsViewController: UIViewController {
         tableView?.reloadData()
     }
 
-    @IBAction func clearList(sender: UIBarButtonItem) {
+    @IBAction func clearList(_ sender: UIBarButtonItem) {
         viewModel.deleteAllData()
     }
     
-    @IBAction func exportList(sender: UIBarButtonItem) {
+    @IBAction func exportList(_ sender: UIBarButtonItem) {
         let eventsString = [viewModel.events.debugDescription]
         let activityVC = UIActivityViewController(activityItems: eventsString,
                                                   applicationActivities: nil)
